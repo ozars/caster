@@ -1,0 +1,3 @@
+add_executable(caster_example EXCLUDE_FROM_ALL example.cpp)
+set_target_properties(caster_example PROPERTIES CXX_STANDARD 17 OUTPUT_NAME example)
+target_link_libraries(caster_example PUBLIC caster)

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <type_traits>
 #include <utility>
 
@@ -67,7 +69,7 @@ static inline decltype(auto) cast_decay(T&& t) {
 }
 
 template <typename F, typename... Args>
-static inline decltype(auto) cast_call(F&& f, Args&&... args) {
+static inline decltype(auto) invoke(F&& f, Args&&... args) {
   return cast_decay(
       std::forward<F>(f)(cast_decay(std::forward<Args>(args))...));
 }
