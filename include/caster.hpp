@@ -70,8 +70,12 @@ static inline decltype(auto) cast_decay(T&& t) {
 
 template <typename F, typename... Args>
 static inline decltype(auto) invoke(F&& f, Args&&... args) {
-  return cast_decay(
-      std::forward<F>(f)(cast_decay(std::forward<Args>(args))...));
+  if constexpr (std::is_same_v<void, decltype(std::forward<F>(f)(cast_decay(
+                                         std::forward<Args>(args))...))>)
+    std::forward<F>(f)(cast_decay(std::forward<Args>(args))...);
+  else
+    return cast_decay(
+        std::forward<F>(f)(cast_decay(std::forward<Args>(args))...));
 }
 
 }  // namespace caster
